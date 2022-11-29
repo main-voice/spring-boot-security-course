@@ -27,4 +27,9 @@ public class StudentController {
                         "Student " + studentId + " does not exists"
                 ));
     }
+
+    @GetMapping("")
+    public String defalut() {
+        return "hello world";
+    }
 }

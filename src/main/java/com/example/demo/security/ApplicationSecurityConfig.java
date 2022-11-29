@@ -11,6 +11,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // we want to authorize request, any requests must be authenticated
         http
                 .authorizeRequests()
                 .antMatchers("/", "index", "/css/*", "/js/*")
@@ -19,6 +20,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .httpBasic();
+        // the mechanism that we want to enforce the authenticity of a client is by using
+        // basic authentication
     }
 
 }
