@@ -30,8 +30,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         // we want to authorize request, any requests must be authenticated
         http
                 .authorizeRequests()
-                .antMatchers("/", "index", "/css/*", "/js/*")
-                .permitAll()
+                .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
+                .antMatchers("/api/**").hasRole(Role.STUDENT.name())
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -45,8 +45,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     protected UserDetailsService userDetailsService() {
         UserDetails user = User.builder()
                 .username("ph")
-                .password(passwordEncoder.encode("154467898723"))
-                .roles(Role.STUDENT.name()) // ROLE_STUDENT
+                .password(passwordEncoder.encode("password"))
+                .roles(Role.STUDENT.name()) // role based authentication
                 .build();
 
         UserDetails admin = User.builder()
