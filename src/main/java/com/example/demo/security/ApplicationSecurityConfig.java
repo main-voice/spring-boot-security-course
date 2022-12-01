@@ -1,6 +1,7 @@
 package com.example.demo.security;
 
 import com.example.demo.auth.ApplicationUserService;
+import com.example.demo.jwt.JwtTokenVerify;
 import com.example.demo.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -46,6 +47,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 下面一行，在认证前，先加一个Jwt的filter，需要一个参数 -- authenticationManager，我们之所以直接调用是因为这个类
                 // 继承了WebSecurityConfigurerAdapter
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager()))
+                .addFilterAfter(new JwtTokenVerify(), JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
                 .antMatchers("/api/**").hasRole(STUDENT.name())

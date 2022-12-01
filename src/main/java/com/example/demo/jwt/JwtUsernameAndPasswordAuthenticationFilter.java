@@ -71,7 +71,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
         String key = "securesecuresecuresecuresecuresecuresecuresecuresecure";
 
         String token = Jwts.builder()
-                .setSubject(authResult.getName())
+                .setSubject(authResult.getName()) // ie.username
                 .claim("authorities", authResult.getAuthorities())
                 .setIssuedAt(new Date())
                 .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusWeeks(2)))
@@ -79,6 +79,6 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                 .compact();
         System.out.println("token has created! : ");
         // return token to client
-        response.addHeader("Authorization", "Bearer " + token);
+        response.addHeader("Authorization", "Bearer" + token);
     }
 }
